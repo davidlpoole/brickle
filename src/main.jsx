@@ -7,7 +7,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 const router = createBrowserRouter([
   {
-    path: '/brickle/',
+    path: import.meta.env.BASE_URL,
     element: <App />,
   },
 ])
