@@ -7,8 +7,8 @@ import { useSearchParams } from 'react-router-dom'
 
 function App() {
   const [script, setScript] = useState('')
-  const [initialWord, setInitialWord] = useState('tlibcheaomkpnr')
-  const [targetWord, setTargetWord] = useState('bricklehampton')
+  const [initialWord, setInitialWord] = useState('')
+  const [targetWord, setTargetWord] = useState('')
 
   let [searchParams, setSearchParams] = useSearchParams()
 
@@ -17,16 +17,13 @@ function App() {
     const target = searchParams.get('target')
     const script = searchParams.get('script')
 
-    if (initial && target && script) {
-      setInitialWord(initial.toLowerCase())
-      setTargetWord(target.toLowerCase())
-      setScript(script.toLowerCase())
-    } else {
-      // Default initial and target words if not provided in URL
-      setInitialWord('tlibcheaomkpnr')
-      setTargetWord('bricklehampton')
-      setScript('')
-    }
+    initial
+      ? setInitialWord(initial.toLowerCase())
+      : setInitialWord('tlibcheaomkpnr')
+    target
+      ? setTargetWord(target.toLowerCase())
+      : setTargetWord('bricklehampton')
+    script ? setScript(script.toLowerCase()) : setScript('')
   }, [])
 
   const updateDisplay = () => {
@@ -69,8 +66,13 @@ function App() {
     setScript('')
     const newTargetWord = e.target.value.toLowerCase().replace(/[^a-z]/g, '') // Remove non-alphabetical characters
     setTargetWord(newTargetWord)
-    setInitialWord(shuffleWord(newTargetWord))
-    setSearchParams({ initial: initialWord, target: newTargetWord, script: '' })
+    const newInitialWord = shuffleWord(newTargetWord)
+    setInitialWord(newInitialWord)
+    setSearchParams({
+      initial: newInitialWord,
+      target: newTargetWord,
+      script: '',
+    })
   }
 
   function shuffleWord(word) {
