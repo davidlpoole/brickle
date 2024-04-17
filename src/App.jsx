@@ -1,13 +1,30 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import run from './libs/run'
 import ScriptDisplay from './components/ScriptDisplay'
 import ResultDisplay from './components/ResultDisplay'
-import trashIcon from './assets/trash.svg' // Importing the SVG file
+import trashIcon from './assets/trash.svg'
+import { useSearchParams } from 'react-router-dom'
 
 function App() {
   const [script, setScript] = useState('')
   const [initialWord, setInitialWord] = useState('tlibcheaomkpnr')
   const [targetWord, setTargetWord] = useState('bricklehampton')
+
+  let [searchParams, setSearchParams] = useSearchParams()
+
+  useEffect(() => {
+    const initial = searchParams.get('initial')
+    const target = searchParams.get('target')
+
+    if (initial && target) {
+      setInitialWord(initial)
+      setTargetWord(target)
+    } else {
+      // Default initial and target words if not provided in URL
+      setInitialWord('tlibcheaomkpnr')
+      setTargetWord('bricklehampton')
+    }
+  }, [])
 
   const updateDisplay = () => {
     const result = run(script, initialWord)
@@ -36,6 +53,7 @@ function App() {
     const newTargetWord = e.target.value.replace(/[^a-zA-Z]/g, '') // Remove non-alphabetical characters
     setTargetWord(newTargetWord)
     setInitialWord(shuffleWord(newTargetWord))
+    setSearchParams({ initial: initialWord, target: newTargetWord })
   }
 
   function shuffleWord(word) {
