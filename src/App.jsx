@@ -18,9 +18,9 @@ function App() {
     const script = searchParams.get('script')
 
     if (initial && target && script) {
-      setInitialWord(initial)
-      setTargetWord(target)
-      setScript(script)
+      setInitialWord(initial.toLowerCase())
+      setTargetWord(target.toLowerCase())
+      setScript(script.toLowerCase())
     } else {
       // Default initial and target words if not provided in URL
       setInitialWord('tlibcheaomkpnr')
@@ -61,13 +61,13 @@ function App() {
   }
 
   const handleInitialWordChange = (e) => {
-    setInitialWord(e.target.value)
+    setInitialWord(e.target.value.toLowerCase().replace(/[^a-z]/g, ''))
     setSearchParams({ initial: e.target.value, target: targetWord, script: '' })
   }
 
   const handleTargetWordChange = (e) => {
     setScript('')
-    const newTargetWord = e.target.value.replace(/[^a-zA-Z]/g, '') // Remove non-alphabetical characters
+    const newTargetWord = e.target.value.toLowerCase().replace(/[^a-z]/g, '') // Remove non-alphabetical characters
     setTargetWord(newTargetWord)
     setInitialWord(shuffleWord(newTargetWord))
     setSearchParams({ initial: initialWord, target: newTargetWord, script: '' })
