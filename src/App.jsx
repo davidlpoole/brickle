@@ -1,61 +1,13 @@
 import React, { useState } from 'react'
+import run from './libs/run'
+import ScriptDisplay from './components/ScriptDisplay'
+import ResultDisplay from './components/ResultDisplay'
 import trashIcon from './assets/trash.svg' // Importing the SVG file
-
-function ScriptDisplay(props) {
-  const { script } = props
-  return (
-    <>
-      <div>Script:</div>
-      <div id="scriptDisplay">{script.toUpperCase()}</div>
-    </>
-  )
-}
-
-function ResultDisplay(props) {
-  const { result, target } = props
-
-  const isCorrect = (index) => {
-    return result[index] === target[index]
-  }
-
-  return (
-    <>
-      <div>Result:</div>
-      <div>
-        {result.split('').map((char, i) => (
-          <span
-            className={`mx-0.5 px-1 py-0.5 bg-gray-700 font-mono rounded ${
-              isCorrect(i) ? 'text-green-200 bg-green-900' : ''
-            }`}
-            key={i}
-          >
-            {char}
-          </span>
-        ))}
-      </div>
-    </>
-  )
-}
 
 function App() {
   const [script, setScript] = useState('')
   const [initialWord, setInitialWord] = useState('tlibcheaomkpnr')
   const [targetWord, setTargetWord] = useState('bricklehampton')
-
-  const run = (script, word) => {
-    return script.split('').reduce((word, i) => {
-      switch (i) {
-        case 'l':
-          return word.slice(1) + word[0]
-        case 'r':
-          return word.slice(-1) + word.slice(0, -1)
-        case '!':
-          return word[3] + word[2] + word[1] + word[0] + word.slice(4)
-        default:
-          return word
-      }
-    }, word)
-  }
 
   const updateDisplay = () => {
     const result = run(script, initialWord)
