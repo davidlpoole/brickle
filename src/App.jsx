@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import trashIcon from './assets/trash.svg' // Importing the SVG file
 
 function App() {
   const [script, setScript] = useState('')
@@ -86,13 +87,13 @@ function App() {
             </button>
             <button
               title="Reset Script"
-              className={`w-12 h-12 bg-gray-700 text-white rounded-md hover:bg-gray-800 ${
+              className={`flex justify-center items-center w-12 h-12 bg-gray-700 text-white rounded-md hover:bg-gray-800 ${
                 script.length === 0 ? 'opacity-50 cursor-not-allowed' : ''
               }`}
               onClick={handleReset}
               disabled={script.length === 0}
             >
-              x
+              <img src={trashIcon} alt="Reset" className="w-6 h-6" />
             </button>
           </div>
         </div>
