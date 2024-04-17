@@ -11,11 +11,11 @@ export default function ResultDisplay(props) {
 
   return (
     <>
-      <div>Result:</div>
-      <div>
+      <div className="font-bold">Result:</div>
+      <div className="mt-2">
         {result.split('').map((char, i) => (
           <span
-            className={`mx-0.5 px-1 py-0.5 bg-gray-700 font-mono rounded 
+            className={`mx-0.5 px-2 py-1 bg-gray-700 font-mono rounded 
             ${isCorrect(i) ? 'text-green-200 bg-green-900' : ''}
             ${isIncorrect(char, target) ? 'text-red-200 bg-red-900' : ''}`}
             key={i}
