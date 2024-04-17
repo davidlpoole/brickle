@@ -51,34 +51,46 @@ function App() {
     <div className="bg-gray-900 text-white max-w-md mx-auto mt-6 p-6 rounded-lg shadow-md">
       <div>
         <div>
-          <div>
-            What is a value for script so that the result equals &apos;
-            {targetWord}&apos;?
-          </div>
+          <div id="explanation" className="bg-gray-800 p-4 rounded-md mb-2">
+            <p>
+              <strong>Instructions:</strong>
+            </p>
+            <ul>
+              <li className="mb-2">
+                Find a value for &apos;script&apos; so that the
+                &apos;result&apos; equals &apos;{targetWord}&apos;
+              </li>
 
-          <div className="flex items-center mt-4 mb-4">
+              <li>&apos;L&apos; moves the first character to the end,</li>
+              <li>&apos;R&apos; moves the last character to the start,</li>
+              <li>&apos;!&apos; reverses the first four characters.</li>
+            </ul>
+          </div>
+          <div className="flex items-center justify-center mt-4 mb-4">
             <button
-              className="w-12 h-12 bg-gray-700 text-white rounded-md mr-4 hover:bg-gray-800"
+              className="w-12 h-12 bg-gray-700 text-white rounded-md mr-4 hover:bg-gray-800 hover:scale-110 hover:shadow-md"
               onClick={() => handleButtonClick('l')}
             >
               L
             </button>
             <button
-              className="w-12 h-12 bg-gray-700 text-white rounded-md mr-4 hover:bg-gray-800"
+              className="w-12 h-12 bg-gray-700 text-white rounded-md mr-4 hover:bg-gray-800 hover:scale-110 hover:shadow-md"
               onClick={() => handleButtonClick('r')}
             >
               R
             </button>
             <button
-              className="w-12 h-12 bg-gray-700 text-white rounded-md mr-4 hover:bg-gray-800"
+              className="w-12 h-12 bg-gray-700 text-white rounded-md mr-4 hover:bg-gray-800 hover:scale-110 hover:shadow-md"
               onClick={() => handleButtonClick('!')}
             >
               !
             </button>
             <button
               title="Backspace"
-              className={`w-12 h-12 bg-gray-700 text-white rounded-md hover:bg-gray-800 mr-4 ${
-                script.length === 0 ? 'opacity-50 cursor-not-allowed' : ''
+              className={`w-12 h-12 bg-gray-700 text-white rounded-md hover:bg-gray-800 mr-4 hover:scale-110 hover:shadow-md ${
+                script.length === 0
+                  ? 'opacity-50 cursor-not-allowed hover:scale-100'
+                  : ''
               }`}
               onClick={handleBackspace}
               disabled={script.length === 0}
@@ -87,13 +99,15 @@ function App() {
             </button>
             <button
               title="Reset Script"
-              className={`flex justify-center items-center w-12 h-12 bg-gray-700 text-white rounded-md hover:bg-gray-800 ${
-                script.length === 0 ? 'opacity-50 cursor-not-allowed' : ''
+              className={`flex justify-center items-center w-12 h-12 bg-gray-700 text-white rounded-md hover:bg-gray-800  hover:scale-110 hover:shadow-md ${
+                script.length === 0
+                  ? 'opacity-50 cursor-not-allowed hover:scale-100'
+                  : ''
               }`}
               onClick={handleReset}
               disabled={script.length === 0}
             >
-              <img src={trashIcon} alt="Reset" className="w-6 h-6" />
+              <img src={trashIcon} alt="Reset" className="w-5 h-5" />
             </button>
           </div>
         </div>
@@ -104,16 +118,6 @@ function App() {
           <p>
             Result: <span id="resultDisplay">{updateDisplay()}</span>
           </p>
-        </div>
-        <div id="explanation" className="bg-gray-800 p-4 rounded-md mt-8">
-          <p>
-            <strong>Instructions:</strong>
-          </p>
-          <ul>
-            <li>&apos;L&apos; moves the first character to the end,</li>
-            <li>&apos;R&apos; moves the last character to the start,</li>
-            <li>&apos;!&apos; reverses the first four characters.</li>
-          </ul>
         </div>
 
         <div className="mt-6">
