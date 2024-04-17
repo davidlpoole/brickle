@@ -1,6 +1,42 @@
 import React, { useState } from 'react'
 import trashIcon from './assets/trash.svg' // Importing the SVG file
 
+function ScriptDisplay(props) {
+  const { script } = props
+  return (
+    <>
+      <div>Script:</div>
+      <div id="scriptDisplay">{script.toUpperCase()}</div>
+    </>
+  )
+}
+
+function ResultDisplay(props) {
+  const { result, target } = props
+
+  const isCorrect = (index) => {
+    return result[index] === target[index]
+  }
+
+  return (
+    <>
+      <div>Result:</div>
+      <div>
+        {result.split('').map((char, i) => (
+          <span
+            className={`mx-0.5 px-1 py-0.5 bg-gray-700 font-mono rounded ${
+              isCorrect(i) ? 'text-green-200 bg-green-900' : ''
+            }`}
+            key={i}
+          >
+            {char}
+          </span>
+        ))}
+      </div>
+    </>
+  )
+}
+
 function App() {
   const [script, setScript] = useState('')
   const [initialWord, setInitialWord] = useState('tlibcheaomkpnr')
@@ -44,7 +80,22 @@ function App() {
   }
 
   const handleTargetWordChange = (e) => {
-    setTargetWord(e.target.value)
+    setScript('')
+    const newTargetWord = e.target.value.replace(/[^a-zA-Z]/g, '') // Remove non-alphabetical characters
+    setTargetWord(newTargetWord)
+    setInitialWord(shuffleWord(newTargetWord))
+  }
+
+  function shuffleWord(word) {
+    // Convert word to an array of characters
+    const wordArray = word.split('')
+    // Shuffle the array using Fisher-Yates algorithm
+    for (let i = wordArray.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1))
+      ;[wordArray[i], wordArray[j]] = [wordArray[j], wordArray[i]]
+    }
+    // Join the shuffled characters back into a string
+    return wordArray.join('')
   }
 
   return (
@@ -112,12 +163,8 @@ function App() {
           </div>
         </div>
         <div>
-          <p>
-            Script: <span id="scriptDisplay">{script.toUpperCase()}</span>
-          </p>
-          <p>
-            Result: <span id="resultDisplay">{updateDisplay()}</span>
-          </p>
+          <ScriptDisplay script={script} />
+          <ResultDisplay result={updateDisplay()} target={targetWord} />
         </div>
 
         <div className="mt-6">
