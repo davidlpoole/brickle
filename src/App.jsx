@@ -28,12 +28,6 @@ function App() {
     script ? setScript(script.toLowerCase()) : setScript('')
   }, [searchParams])
 
-  const updateDisplay = () => {
-    const result = run(script, initialWord)
-    document.title = result
-    return result
-  }
-
   return (
     <>
       <div className="bg-gray-900 text-white max-w-md mx-auto mt-6 p-4 rounded-lg shadow-md">
@@ -52,7 +46,10 @@ function App() {
           </div>
           <div>
             <ScriptDisplay script={script} />
-            <ResultDisplay result={updateDisplay()} target={targetWord} />
+            <ResultDisplay
+              result={run(script, initialWord)}
+              target={targetWord}
+            />
           </div>
         </div>
       </div>
