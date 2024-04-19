@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import trashIcon from '../assets/trash.svg'
 import { useCallback, useEffect } from 'react'
 
 GameInput.propTypes = {
@@ -26,6 +25,21 @@ export default function GameInput(props) {
     [script, setScript, setSearchParams, initialWord, targetWord]
   )
 
+  const handleBackspace = useCallback(() => {
+    const newScript = script.slice(0, -1)
+    setScript(newScript)
+    setSearchParams({
+      initial: initialWord,
+      target: targetWord,
+      script: newScript,
+    })
+  }, [script, setScript, setSearchParams, initialWord, targetWord])
+
+  const handleReset = useCallback(() => {
+    setScript('')
+    setSearchParams({ initial: initialWord, target: targetWord, script: '' })
+  }, [setScript, setSearchParams, initialWord, targetWord])
+
   useEffect(() => {
     const handleKeyPress = (event) => {
       if (!event.target.matches('input, textarea')) {
@@ -35,6 +49,10 @@ export default function GameInput(props) {
           handleButtonClick('r')
         } else if (event.key === 'ArrowUp') {
           handleButtonClick('!')
+        } else if (event.key === 'Backspace') {
+          handleBackspace()
+        } else if (event.key === 'Escape') {
+          handleReset()
         }
       }
     }
@@ -44,22 +62,7 @@ export default function GameInput(props) {
     return () => {
       document.removeEventListener('keydown', handleKeyPress)
     }
-  }, [handleButtonClick])
-
-  const handleBackspace = () => {
-    const newScript = script.slice(0, -1)
-    setScript(newScript)
-    setSearchParams({
-      initial: initialWord,
-      target: targetWord,
-      script: newScript,
-    })
-  }
-
-  const handleReset = () => {
-    setScript('')
-    setSearchParams({ initial: initialWord, target: targetWord, script: '' })
-  }
+  }, [handleButtonClick, handleBackspace, handleReset])
 
   return (
     <div className="flex items-center justify-center mt-4 mb-4">
@@ -103,7 +106,7 @@ export default function GameInput(props) {
         onClick={handleReset}
         disabled={script.length === 0}
       >
-        <img src={trashIcon} alt="Reset" className="w-5 h-5" />
+        ⎋
       </button>
     </div>
   )
