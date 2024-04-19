@@ -1,3 +1,9 @@
+import PropTypes from 'prop-types'
+
+ScriptDisplay.propTypes = {
+  script: PropTypes.string.isRequired,
+}
+
 export default function ScriptDisplay(props) {
   const { script } = props
   return (

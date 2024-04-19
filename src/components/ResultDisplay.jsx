@@ -1,3 +1,10 @@
+import PropTypes from 'prop-types'
+
+ResultDisplay.propTypes = {
+  result: PropTypes.string.isRequired,
+  target: PropTypes.string.isRequired,
+}
+
 export default function ResultDisplay(props) {
   const { result, target } = props
 

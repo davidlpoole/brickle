@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import run from './libs/run'
 import ScriptDisplay from './components/ScriptDisplay'
 import ResultDisplay from './components/ResultDisplay'
@@ -24,7 +24,7 @@ function App() {
       ? setTargetWord(target.toLowerCase())
       : setTargetWord('bricklehampton')
     script ? setScript(script.toLowerCase()) : setScript('')
-  }, [])
+  }, [searchParams])
 
   const updateDisplay = () => {
     const result = run(script, initialWord)
