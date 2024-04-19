@@ -1,19 +1,42 @@
 import PropTypes from 'prop-types'
+import { shuffleWord } from '../utils'
 
 GameConfig.propTypes = {
   initialWord: PropTypes.string.isRequired,
-  handleInitialWordChange: PropTypes.func.isRequired,
   targetWord: PropTypes.string.isRequired,
-  handleTargetWordChange: PropTypes.func.isRequired,
+  setInitialWord: PropTypes.func.isRequired,
+  setTargetWord: PropTypes.func.isRequired,
+  setSearchParams: PropTypes.func.isRequired,
+  setScript: PropTypes.func.isRequired,
 }
 
 export default function GameConfig(props) {
   const {
     initialWord,
-    handleInitialWordChange,
     targetWord,
-    handleTargetWordChange,
+    setInitialWord,
+    setTargetWord,
+    setSearchParams,
+    setScript,
   } = props
+
+  const handleInitialWordChange = (e) => {
+    setInitialWord(e.target.value.toLowerCase().replace(/[^a-z]/g, ''))
+    setSearchParams({ initial: e.target.value, target: targetWord, script: '' })
+  }
+
+  const handleTargetWordChange = (e) => {
+    setScript('')
+    const newTargetWord = e.target.value.toLowerCase().replace(/[^a-z]/g, '')
+    setTargetWord(newTargetWord)
+    const newInitialWord = shuffleWord(newTargetWord)
+    setInitialWord(newInitialWord)
+    setSearchParams({
+      initial: newInitialWord,
+      target: newTargetWord,
+      script: '',
+    })
+  }
 
   return (
     <div
