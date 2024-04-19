@@ -41,19 +41,25 @@ export default function GameInput(props) {
   }, [setScript, setSearchParams, initialWord, targetWord])
 
   useEffect(() => {
+    const keyToActionMap = {
+      ArrowLeft: 'l',
+      l: 'l',
+      ArrowRight: 'r',
+      r: 'r',
+      ArrowUp: '!',
+      '!': '!',
+      Backspace: handleBackspace,
+      Escape: handleReset,
+    }
+
     const handleKeyPress = (event) => {
-      if (!event.target.matches('input, textarea')) {
-        if (event.key === 'ArrowLeft') {
-          handleButtonClick('l')
-        } else if (event.key === 'ArrowRight') {
-          handleButtonClick('r')
-        } else if (event.key === 'ArrowUp') {
-          handleButtonClick('!')
-        } else if (event.key === 'Backspace') {
-          handleBackspace()
-        } else if (event.key === 'Escape') {
-          handleReset()
-        }
+      if (event.target.matches('input, textarea')) return
+
+      const action = keyToActionMap[event.key]
+      if (typeof action === 'string') {
+        handleButtonClick(action) // 'l', 'r', '!'
+      } else if (typeof action === 'function') {
+        action() // handleBackspace, handleReset
       }
     }
 
