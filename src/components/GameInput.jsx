@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import trashIcon from '../assets/trash.svg'
+import { useCallback, useEffect } from 'react'
 
 GameInput.propTypes = {
   script: PropTypes.string.isRequired,
@@ -12,15 +13,38 @@ GameInput.propTypes = {
 export default function GameInput(props) {
   const { script, setScript, setSearchParams, initialWord, targetWord } = props
 
-  const handleButtonClick = (char) => {
-    const newScript = script + char
-    setScript(newScript)
-    setSearchParams({
-      initial: initialWord,
-      target: targetWord,
-      script: newScript,
-    })
-  }
+  const handleButtonClick = useCallback(
+    (char) => {
+      const newScript = script + char
+      setScript(newScript)
+      setSearchParams({
+        initial: initialWord,
+        target: targetWord,
+        script: newScript,
+      })
+    },
+    [script, setScript, setSearchParams, initialWord, targetWord]
+  )
+
+  useEffect(() => {
+    const handleKeyPress = (event) => {
+      if (!event.target.matches('input, textarea')) {
+        if (event.key === 'ArrowLeft') {
+          handleButtonClick('l')
+        } else if (event.key === 'ArrowRight') {
+          handleButtonClick('r')
+        } else if (event.key === 'ArrowUp') {
+          handleButtonClick('!')
+        }
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyPress)
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyPress)
+    }
+  }, [handleButtonClick])
 
   const handleBackspace = () => {
     const newScript = script.slice(0, -1)
