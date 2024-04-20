@@ -14,10 +14,13 @@ function KBD({ children }) {
 
 Explanation.propTypes = {
   targetWord: PropTypes.string.isRequired,
+  initialWord: PropTypes.string.isRequired,
+  difficulty: PropTypes.number.isRequired,
 }
 
 export default function Explanation(props) {
-  const { targetWord } = props
+  const { targetWord, initialWord, difficulty } = props
+
   return (
     <div id="explanation" className="bg-gray-800 p-4 rounded-md mb-2">
       <p>
@@ -25,8 +28,8 @@ export default function Explanation(props) {
       </p>
       <ul>
         <li className="mb-2">
-          Use your keyboard or the buttons below to generate a value for
-          &apos;script&apos; so that the &apos;result&apos; equals &apos;
+          Use your keyboard or the buttons below to generate a value for the
+          &apos;script&apos; that transforms &apos;{initialWord}&apos; to &apos;
           {targetWord}&apos;
         </li>
 
@@ -37,7 +40,8 @@ export default function Explanation(props) {
           <KBD>→</KBD> or <KBD>R</KBD> moves the last character to the start
         </li>
         <li>
-          <KBD>↑</KBD> or <KBD>!</KBD> reverses the first four characters
+          <KBD>↑</KBD> or <KBD>!</KBD> reverses the first {difficulty + 1}{' '}
+          characters
         </li>
         <li>
           <KBD>⌫ (Backspace)</KBD> deletes the last character
