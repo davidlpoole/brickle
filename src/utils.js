@@ -1,5 +1,6 @@
-export function run(script, word) {
+export function run(script, word, difficulty) {
   // https://gist.github.com/gerardpaapu/1bdf3eca8307b8be0bfa617a8b16266b
+  // with added difficulty option
   return script.split('').reduce((word, i) => {
     switch (i) {
       case 'l':
@@ -7,7 +8,17 @@ export function run(script, word) {
       case 'r':
         return word.slice(-1) + word.slice(0, -1)
       case '!':
-        return word[3] + word[2] + word[1] + word[0] + word.slice(4)
+        {
+          switch (difficulty) {
+            case 1:
+              return word[1] + word[0] + word.slice(2)
+            case 2:
+              return word[2] + word[1] + word[0] + word.slice(3)
+            case 3:
+              return word[3] + word[2] + word[1] + word[0] + word.slice(4)
+          }
+        }
+        break
       default:
         return word
     }

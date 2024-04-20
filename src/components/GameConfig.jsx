@@ -8,6 +8,8 @@ GameConfig.propTypes = {
   setTargetWord: PropTypes.func.isRequired,
   setSearchParams: PropTypes.func.isRequired,
   setScript: PropTypes.func.isRequired,
+  difficulty: PropTypes.number.isRequired,
+  setDifficulty: PropTypes.func.isRequired,
 }
 
 export default function GameConfig(props) {
@@ -18,7 +20,15 @@ export default function GameConfig(props) {
     setTargetWord,
     setSearchParams,
     setScript,
+    difficulty,
+    setDifficulty,
   } = props
+
+  const difficultyText = {
+    1: 'Easy',
+    2: 'Medium',
+    3: 'Hard',
+  }
 
   const handleInitialWordChange = (e) => {
     setInitialWord(e.target.value.toLowerCase().replace(/[^a-z]/g, ''))
@@ -63,6 +73,22 @@ export default function GameConfig(props) {
           id="initialWordInput"
           value={initialWord}
           onChange={handleInitialWordChange}
+          className="w-full px-4 py-2 bg-gray-700 text-zinc-300 rounded-md mt-2 mb-4"
+        />
+      </div>
+
+      <div>
+        <label htmlFor="difficulty">
+          Difficulty: {difficultyText[difficulty]}
+        </label>
+        <input
+          type="range"
+          min={1}
+          max={3}
+          step={1}
+          id="difficulty"
+          value={difficulty}
+          onChange={(e) => setDifficulty(Number(e.target.value))}
           className="w-full px-4 py-2 bg-gray-700 text-zinc-300 rounded-md mt-2"
         />
       </div>

@@ -11,6 +11,7 @@ function App() {
   const [script, setScript] = useState('')
   const [initialWord, setInitialWord] = useState('')
   const [targetWord, setTargetWord] = useState('')
+  const [difficulty, setDifficulty] = useState(1)
 
   let [searchParams, setSearchParams] = useSearchParams()
 
@@ -47,7 +48,7 @@ function App() {
           <div>
             <ScriptDisplay script={script} />
             <ResultDisplay
-              result={run(script, initialWord)}
+              result={run(script, initialWord, difficulty)}
               target={targetWord}
             />
           </div>
@@ -61,6 +62,8 @@ function App() {
           setTargetWord,
           setSearchParams,
           setScript,
+          difficulty,
+          setDifficulty,
         }}
       />
     </>
