@@ -1,8 +1,17 @@
-# React + Vite
+# Brickle
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Inspired by [Gerard Paapu's Bricklehampton gist](https://gist.github.com/gerardpaapu/1bdf3eca8307b8be0bfa617a8b16266b)
 
-Currently, two official plugins are available:
+## Purpose
+Visually and interactively play with Gerard's `run` function, in order to understand it better - to then be able to code a solver algorithm.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Installation
+- clone the repo
+- `npm install`
+- `npm run dev`
+
+
+## Live version
+https://davidlpoole.github.io/brickle/
+
+
