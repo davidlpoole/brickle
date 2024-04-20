@@ -30,7 +30,7 @@ function App() {
       <div className="bg-gray-900 text-white max-w-md mx-auto mt-6 p-4 rounded-lg shadow-md">
         <div>
           <div>
-            <Explanation targetWord={targetWord} />
+            <Explanation {...{ initialWord, targetWord, difficulty }} />
             <GameInput
               {...{
                 script,
