@@ -11,6 +11,7 @@ function App() {
   const [script, setScript] = useState('')
   const [initialWord, setInitialWord] = useState('')
   const [targetWord, setTargetWord] = useState('')
+  const [difficulty, setDifficulty] = useState(1)
 
   let [searchParams, setSearchParams] = useSearchParams()
 
@@ -19,12 +20,8 @@ function App() {
     const target = searchParams.get('target')
     const script = searchParams.get('script')
 
-    initial
-      ? setInitialWord(initial.toLowerCase())
-      : setInitialWord('tlibcheaomkpnr')
-    target
-      ? setTargetWord(target.toLowerCase())
-      : setTargetWord('bricklehampton')
+    initial ? setInitialWord(initial.toLowerCase()) : setInitialWord('bciklre')
+    target ? setTargetWord(target.toLowerCase()) : setTargetWord('brickle')
     script ? setScript(script.toLowerCase()) : setScript('')
   }, [searchParams])
 
@@ -47,7 +44,7 @@ function App() {
           <div>
             <ScriptDisplay script={script} />
             <ResultDisplay
-              result={run(script, initialWord)}
+              result={run(script, initialWord, difficulty)}
               target={targetWord}
             />
           </div>
@@ -61,6 +58,8 @@ function App() {
           setTargetWord,
           setSearchParams,
           setScript,
+          difficulty,
+          setDifficulty,
         }}
       />
     </>

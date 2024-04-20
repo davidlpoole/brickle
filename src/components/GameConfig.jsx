@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import { shuffleWord } from '../utils'
+import { useState } from 'react'
 
 GameConfig.propTypes = {
   initialWord: PropTypes.string.isRequired,
@@ -8,6 +9,8 @@ GameConfig.propTypes = {
   setTargetWord: PropTypes.func.isRequired,
   setSearchParams: PropTypes.func.isRequired,
   setScript: PropTypes.func.isRequired,
+  difficulty: PropTypes.number.isRequired,
+  setDifficulty: PropTypes.func.isRequired,
 }
 
 export default function GameConfig(props) {
@@ -18,7 +21,17 @@ export default function GameConfig(props) {
     setTargetWord,
     setSearchParams,
     setScript,
+    difficulty,
+    setDifficulty,
   } = props
+
+  const [hidden, setHidden] = useState(true)
+
+  const difficultyText = {
+    1: 'Easy',
+    2: 'Medium',
+    3: 'Hard',
+  }
 
   const handleInitialWordChange = (e) => {
     setInitialWord(e.target.value.toLowerCase().replace(/[^a-z]/g, ''))
@@ -41,30 +54,50 @@ export default function GameConfig(props) {
   return (
     <div
       id="config"
-      className="pt-4 bg-gray-900 text-zinc-400 max-w-md mx-auto mt-6 p-6 rounded-lg shadow-md"
+      className="bg-gray-900 text-zinc-400 max-w-md mx-auto mt-4 p-4 rounded-lg shadow-md"
     >
-      <div className="font-bold mb-2">Configure game (advanced)</div>
+      <button className="font-bold" onClick={() => setHidden(!hidden)}>
+        {hidden ? 'Show' : 'Hide'} Game Config
+      </button>
 
-      <div>
-        <label htmlFor="targetWordInput">Target word: </label>
-        <input
-          type="text"
-          id="targetWordInput"
-          value={targetWord}
-          onChange={handleTargetWordChange}
-          className="w-full px-4 py-2 bg-gray-700 text-zinc-300 rounded-md mt-2 mb-4"
-        />
-      </div>
+      <div className={`${hidden ? 'hidden' : 'mt-2'}`}>
+        <div>
+          <label htmlFor="targetWordInput">Target word: </label>
+          <input
+            type="text"
+            id="targetWordInput"
+            value={targetWord}
+            onChange={handleTargetWordChange}
+            className="w-full px-4 py-2 bg-gray-700 text-zinc-300 rounded-md mt-2 mb-4"
+          />
+        </div>
 
-      <div>
-        <label htmlFor="initialWordInput">Initial word: </label>
-        <input
-          type="text"
-          id="initialWordInput"
-          value={initialWord}
-          onChange={handleInitialWordChange}
-          className="w-full px-4 py-2 bg-gray-700 text-zinc-300 rounded-md mt-2"
-        />
+        <div>
+          <label htmlFor="initialWordInput">Initial word: </label>
+          <input
+            type="text"
+            id="initialWordInput"
+            value={initialWord}
+            onChange={handleInitialWordChange}
+            className="w-full px-4 py-2 bg-gray-700 text-zinc-300 rounded-md mt-2 mb-4"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="difficulty">
+            Difficulty: {difficultyText[difficulty]}
+          </label>
+          <input
+            type="range"
+            min={1}
+            max={3}
+            step={1}
+            id="difficulty"
+            value={difficulty}
+            onChange={(e) => setDifficulty(Number(e.target.value))}
+            className="w-full px-4 py-2 bg-gray-700 text-zinc-300 rounded-md mt-2"
+          />
+        </div>
       </div>
     </div>
   )
