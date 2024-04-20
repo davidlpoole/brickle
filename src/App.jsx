@@ -20,12 +20,8 @@ function App() {
     const target = searchParams.get('target')
     const script = searchParams.get('script')
 
-    initial
-      ? setInitialWord(initial.toLowerCase())
-      : setInitialWord('tlibcheaomkpnr')
-    target
-      ? setTargetWord(target.toLowerCase())
-      : setTargetWord('bricklehampton')
+    initial ? setInitialWord(initial.toLowerCase()) : setInitialWord('bciklre')
+    target ? setTargetWord(target.toLowerCase()) : setTargetWord('brickle')
     script ? setScript(script.toLowerCase()) : setScript('')
   }, [searchParams])
 

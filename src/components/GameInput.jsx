@@ -55,6 +55,7 @@ export default function GameInput(props) {
     const handleKeyPress = (event) => {
       if (event.target.matches('input, textarea')) return
       if (event.metaKey) return
+      event.preventDefault()
 
       const action = keyToActionMap[event.key]
       if (typeof action === 'string') {
