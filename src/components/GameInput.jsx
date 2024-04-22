@@ -104,7 +104,7 @@ export default function GameInput(props) {
       >
         ⌫
       </button>
-      <button
+      {/* <button
         title="Reset Script"
         className={`flex justify-center items-center w-12 h-12 bg-gray-700 text-white rounded-md hover:bg-gray-600  hover:scale-110 hover:shadow-md ${
           script.length === 0
@@ -115,7 +115,7 @@ export default function GameInput(props) {
         disabled={script.length === 0}
       >
         ⎋
-      </button>
+      </button> */}
     </div>
   )
 }
