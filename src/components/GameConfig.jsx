@@ -52,10 +52,7 @@ export default function GameConfig(props) {
   }
 
   return (
-    <div
-      id="config"
-      className="bg-gray-900 text-zinc-400 max-w-md mx-auto mt-4 p-4 rounded-lg shadow-md"
-    >
+    <>
       <button className="font-bold" onClick={() => setHidden(!hidden)}>
         {hidden ? 'Show' : 'Hide'} Game Config
       </button>
@@ -99,6 +96,6 @@ export default function GameConfig(props) {
           />
         </div>
       </div>
-    </div>
+    </>
   )
 }

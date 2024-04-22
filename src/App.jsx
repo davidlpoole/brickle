@@ -27,7 +27,7 @@ function App() {
 
   return (
     <>
-      <div className="bg-gray-900 text-white max-w-md mx-auto mt-6 p-4 rounded-lg shadow-md">
+      <div className="bg-gray-900 text-white max-w-md mx-auto mt-4 p-4 rounded-lg shadow-md">
         <div>
           <div>
             <Explanation {...{ initialWord, targetWord, difficulty }} />
@@ -50,18 +50,20 @@ function App() {
           </div>
         </div>
       </div>
-      <GameConfig
-        {...{
-          initialWord,
-          targetWord,
-          setInitialWord,
-          setTargetWord,
-          setSearchParams,
-          setScript,
-          difficulty,
-          setDifficulty,
-        }}
-      />
+      <div className="bg-gray-900 text-zinc-400 max-w-md mx-auto mt-4 p-4 rounded-lg shadow-md">
+        <GameConfig
+          {...{
+            initialWord,
+            targetWord,
+            setInitialWord,
+            setTargetWord,
+            setSearchParams,
+            setScript,
+            difficulty,
+            setDifficulty,
+          }}
+        />
+      </div>
     </>
   )
 }
