@@ -6,7 +6,6 @@ import { useSearchParams } from 'react-router-dom'
 import GameConfig from './components/GameConfig'
 import Explanation from './components/Explanation'
 import GameInput from './components/GameInput'
-import GitHubLogo from './assets/GitHub_Logo_White.png'
 
 function App() {
   const [script, setScript] = useState('')
